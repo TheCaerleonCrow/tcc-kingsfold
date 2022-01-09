@@ -1,0 +1,25 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-node-resolve": "^11.0.0",
+    "rollup": "^2.3.4",
+    "rollup-plugin-css-only": "^3.1.0",
+    "rollup-plugin-svelte": "^7.0.0",
+    "rollup-plugin-terser": "^7.0.0",
+    "svelte": "^3.0.0"
+  },
+  "dependencies": {
+  },
+  "extension": {
+    "name": "Template",
+    "description": "A starting point for any extension.",
+    "icon": "assets/gui/globe.png",
+    "main": "build/bundle/index.js",
+    "css": "build/bundle/index.css"
+  }
+}

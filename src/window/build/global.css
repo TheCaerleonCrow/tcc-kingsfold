@@ -1,0 +1,40 @@
+:root 
+{
+	--main-color: black;
+	--secondary-color: #222;
+	--third-color: #444;
+}
+
+html, body 
+{
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+body 
+{
+	color: #FFFFFF;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+	-webkit-scrollbar-width: thin;
+}
+
+::-webkit-scrollbar
+{
+	width: 8px;
+	height: 8px;
+	background-color: #00000088;
+}
+
+::-webkit-scrollbar-thumb
+{
+	background-color: #444;
+}
+
+::-webkit-scrollbar-corner
+{
+	background-color: #00000088;
+}
