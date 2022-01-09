@@ -20,5 +20,5 @@ You can play with the source if you know what you're doing.
 We use nodejs and electron.
 You'll also need to check out `tcc-sniffer` to build the exe, placing it in the root folder here.
 
-For everyone else, there is an installer here [releases].
+For everyone else, there is an installer here [`Preview Release`](https://github.com/TheCaerleonCrow/tcc-kingsfold/releases/tag/v0.0.0-preview).
 Remember this is just to try out, not to use it.
