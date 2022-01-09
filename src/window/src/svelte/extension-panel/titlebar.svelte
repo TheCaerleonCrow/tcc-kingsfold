@@ -2,7 +2,7 @@
     import { createEventDispatcher } from 'svelte';
     let dispatch = createEventDispatcher();
 
-    import * as WorkspacePanels from './store.js';
+    import * as Workspaces from '../workspace-store.js';
     import { workspaceWidth, workspaceHeight } from '../store.js';
 
     export let workspaceName;
@@ -31,15 +31,18 @@
             my : event.pageY,
         };
 
-        WorkspacePanels.GetWorkspace(workspaceName).CaptureMouse();
+        //WorkspacePanels.GetWorkspace(workspaceName).CaptureMouse();
+        Workspaces.SetMouseState(workspaceName, 'none');
     }
 
     function OnMouseUp()
     {
         if (!isDragging) return;
         isDragging = false;
-        WorkspacePanels.GetWorkspace(workspaceName).FreeMouse();
-        __window.saveWorkspace(workspaceName, WorkspacePanels.GetWorkspace(workspaceName).Get());
+        //WorkspacePanels.GetWorkspace(workspaceName).FreeMouse();
+        //__window.saveWorkspace(workspaceName, WorkspacePanels.GetWorkspace(workspaceName).Get());
+        Workspaces.SetMouseState(workspaceName, 'auto');
+        Workspaces.SaveWorkspace(workspaceName);
     }
 
     function OnMouseMove(event)
@@ -49,7 +52,7 @@
         let tx = dragState.x + (event.pageX - dragState.mx);
         let ty = dragState.y + (event.pageY - dragState.my);
 
-        WorkspacePanels.GetWorkspace(workspaceName).Get().forEach(panel =>
+        Workspaces.GetPanels(workspaceName).forEach(panel =>
         {
             if (panel.id == id) return;
             

@@ -8,36 +8,26 @@
 	import StatusBar from './statusbar.svelte';
 	import Separator from './separator.svelte';
 
-	import { documentTitle, workspaceWidth, workspaceHeight, Workspaces } from './store.js';
-	import * as WorkspacePanels from './extension-panel/store.js';
+	import { documentTitle, workspaceWidth, workspaceHeight } from './store.js';
+	import * as Workspaces from './workspace-store.js';
+	import { Store, VisibleWorkspace } from './workspace-store.js';
 
-	let workspaces = [];
 	let workspaceContainer;
-
 	let workspacesUnsubscriber;
+	const resizeObserver = new ResizeObserver(entries => OnResize());
 
-	function OpenWorkspace(name,show=false)
+	function SelectWorkspace(name)
 	{
-		workspaces = [...workspaces, {name,comp:null,show}];
-	}
-
-	function SelectWorkspace(event)
-	{
-		documentTitle.set(`${event.detail} - Kingsfold`);
-		workspaces.forEach(w => w.show = w.name == event.detail);
-		workspaces = workspaces;
+		documentTitle.set(`${name} - Kingsfold`);
+		Workspaces.ShowWorkspace(name);
 	}
 
 	function OpenExtension(event)
 	{
-		workspaces.forEach(w => 
-		{
-			if (!w.show) return;
-			w.comp.AddPanel(0, 0, 100, 100, event.detail.name);
-			__window.saveWorkspace(
-				w.name,
-				WorkspacePanels.GetWorkspace(w.name).Get()
-			);
+		Workspaces.AddPanel($VisibleWorkspace, {
+			x:0, y:0,
+			w:100, h:100,
+			name: event.detail.name,
 		});
 	}
 
@@ -47,17 +37,19 @@
         workspaceHeight.set(workspaceContainer.clientHeight -2);
     }
 
-	const resizeObserver = new ResizeObserver(entries => OnResize());
-
-	onMount(_ =>
+	onMount(() =>
 	{
-		OpenWorkspace('default',true);
-		OpenWorkspace('workspaceTest1');
-
+		Workspaces.LoadWorkspaces(() =>
+		{
+			Workspaces.AddWorkspace('testworkspace', 'assets/avatars/MORGANABOOK1.png');
+			Workspaces.AddWorkspace('default', 'assets/avatars/MORGANABOOK1.png');
+			SelectWorkspace('default');
+		});
+		
 		resizeObserver.observe(workspaceContainer);
 	});
 
-	onDestroy(_ =>
+	onDestroy(() =>
 	{
 		if (workspacesUnsubscriber)
 			workspacesUnsubscriber();
@@ -96,14 +88,12 @@
 <div class="container">
 	<Titlebar />
 	<div class="main">
-		<WorkspaceList on:selectWorkspace={SelectWorkspace} />
+		<WorkspaceList on:selectWorkspace={(e) => SelectWorkspace(e.detail)} />
 		<ExtensionList on:openextension={OpenExtension} />
 		<Separator />
 		<div class="workspace-container" bind:this={workspaceContainer}>
-			{#each workspaces as workspace,index}
+			{#each $Store as workspace (workspace.id)}
 				<Workspace 
-					bind:this = {workspace.comp}
-					show={workspace.show}
 					name={workspace.name} 
 				/>
 			{/each}

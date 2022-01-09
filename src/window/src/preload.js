@@ -3,9 +3,6 @@ const { contextBridge, ipcRenderer } = require('electron');
 // Only the main renderer should have access to these.
 if (process.isMainFrame)
 {
-    let workspaces = {};
-
-
 
     contextBridge.exposeInMainWorld('__window', 
     {
@@ -17,24 +14,23 @@ if (process.isMainFrame)
             ipcRenderer.send('get-extensions');
             ipcRenderer.once('get-extensions', (event, data) => callback(data));
         },
-        getWorkspaces: (callback) => 
+        LoadWorkspaces: (callback) => 
         {
             ipcRenderer.send('get-workspaces');
             ipcRenderer.once('get-workspaces', (event, data) => 
             {
                 callback(data);
-                workspaces = data;
             });
         },
-        saveWorkspace: (name, panels) =>
+        SaveWorkspace: (name, icon, panels) =>
         {
-            const data = workspaces[name];
-            data.extensions = [];
+            const data = {name,icon};
+            data.panels = [];
 
             panels.forEach(p => 
             {
-                const panel = {name:p.title, x:p.x, y:p.y, w:p.w, h:p.h, data:{}};
-                data.extensions.push(panel);
+                const panel = {name:p.name, x:p.x, y:p.y, w:p.w, h:p.h, data:{}};
+                data.panels.push(panel);
             });
 
             ipcRenderer.send('save-workspace', data);

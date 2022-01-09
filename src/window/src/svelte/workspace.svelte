@@ -1,65 +1,17 @@
 <script>
-    import { onMount, onDestroy } from 'svelte';
-
-    import { Workspaces } from './store.js';
-    import * as WorkspacePanels from './extension-panel/store.js';
-
     import ExtensionPanel from './extension-panel/panel.svelte';
+    import * as Workspaces from './workspace-store.js';
+    import { VisibleWorkspace } from './workspace-store.js';
 
     export let name;
-    export let show;
     
-    let panelStore;
-    let panels = [];
-    
-    let panelsUnsubcriber;
-    let workspaceUnsubscriber;
-
-    function Init()
-    {
-        panelStore = WorkspacePanels.AddWorkspace(name);
-
-        if (panelsUnsubcriber)
-            panelsUnsubcriber();
-        if (workspaceUnsubscriber)
-            workspaceUnsubscriber();
-
-        panelsUnsubcriber = panelStore.subscribe(v => panels = v);
-        
-        workspaceUnsubscriber = Workspaces.subscribe(v => 
-        {
-            if (v[name] === undefined) return;
-
-            v[name].extensions.forEach(e =>
-            {
-                AddPanel(e.x, e.y, e.w, e.h, e.name);
-            });
-        });
-    }
-
-    export function AddPanel(x=0, y=0, width=100, height=100, title='Extension Name')
-    {
-        panelStore.Add(x, y, width, height, title);
-    }
+    let panels = Workspaces.GetPanelsStore(name);
+    $: visible = $VisibleWorkspace === name;
 
     function ClosePanel(id)
     {
-        panelStore.Remove(id);
+        Workspaces.RemovePanel(name, id);
     }
-
-    onMount(() =>
-    {
-        Init();
-    });
-
-    onDestroy(() => 
-    {
-        if (panelsUnsubcriber)
-            panelsUnsubcriber();
-        if (workspaceUnsubscriber)
-            workspaceUnsubscriber();
-    });
-
 </script>
 
 <style>
@@ -72,8 +24,9 @@
 	}
 </style>
 
-<div class="container" style={`display:${show ? 'initial':'none'}`}>
-    {#each panels as panel (panel.id)}
+<div class="container" style={`display:${visible ? 'initial':'none'}`}>
+    {#if panels !== undefined}
+    {#each $panels as panel (panel.id)}
         <ExtensionPanel
             on:close={() => ClosePanel(panel.id)}
 
@@ -84,7 +37,8 @@
             bind:w={panel.w}
             bind:h={panel.h}
             bind:iframe={panel.iframe}
-            bind:title={panel.title}
+            bind:title={panel.name}
         />
     {/each}
+    {/if}
 </div>

@@ -2,18 +2,22 @@
 
     import Item from './item.svelte';
 
-    import { Workspaces } from '../store.js';
+    // import { Workspaces } from '../store.js';
+    //import { GetAllWorkspaces } from '../store.js';
 
-    import { onDestroy, createEventDispatcher } from 'svelte';
+    import { Store } from '../workspace-store.js';
+
+    import { onMount, onDestroy, createEventDispatcher } from 'svelte';
     let dispatch = createEventDispatcher();
 
 
-    let items = [];
+    // let items = [];
+    // let workspacesUnsubscriber;
 
-    function AddItem(item)
-    {
-        items = [...items, item];
-    }
+    // function AddItem(item)
+    // {
+    //     items = [...items, item];
+    // }
 
     function OnClickItem(item)
     {
@@ -21,19 +25,30 @@
     }
 
 
-    const unsubWorkspaces = Workspaces.subscribe((value) =>
-    {
-        Object.values(value).forEach(workspace => 
-        {
-            AddItem(workspace);
-        });
-    });
+    // const unsubWorkspaces = Workspaces.subscribe((value) =>
+    // {
+    //     items = [];
+    //     Object.values(value).forEach(workspace => 
+    //     {
+    //         AddItem(workspace);
+    //     });
+    // });
 
+    // onMount(() =>
+    // {
+    //     workspacesUnsubscriber = GetAllWorkspaces().subscribe(v =>
+    //     {
+    //         items = [];
+    //         Object.values(v).forEach(AddItem);
+    //     });
+    // });
 
-    onDestroy(() =>
-    {
-        unsubExtensions();
-    });
+    // onDestroy(() =>
+    // {
+    //     if (workspacesUnsubscriber)
+    //     workspacesUnsubscriber();
+    //     // unsubExtensions();
+    // });
 
 
 
@@ -53,7 +68,7 @@
 </style>
 
 <div class="container">
-    {#each items as item}
-        <Item img={item.icon} on:click={() => OnClickItem(item)}/>
+    {#each $Store as workspace}
+        <Item img={workspace.icon} on:click={() => OnClickItem(workspace)}/>
     {/each}
 </div>

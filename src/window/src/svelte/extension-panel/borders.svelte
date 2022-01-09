@@ -1,5 +1,5 @@
 <script>
-    import * as WorkspacePanels from './store.js';
+    import * as Workspaces from '../workspace-store.js';
     import { workspaceWidth, workspaceHeight } from '../store.js';
 
     export let workspaceName;
@@ -37,15 +37,18 @@
             my: event.pageY,
         };
 
-        WorkspacePanels.GetWorkspace(workspaceName).CaptureMouse();
+        //WorkspacePanels.GetWorkspace(workspaceName).CaptureMouse();
+        Workspaces.SetMouseState(workspaceName, 'none');
     }
 
     function OnMouseUp()
     {
         if (!isDragging) return;
         isDragging = false;
-        WorkspacePanels.GetWorkspace(workspaceName).FreeMouse();
-        __window.saveWorkspace(workspaceName, WorkspacePanels.GetWorkspace(workspaceName).Get());
+        //WorkspacePanels.GetWorkspace(workspaceName).FreeMouse();
+        //__window.saveWorkspace(workspaceName, WorkspacePanels.GetWorkspace(workspaceName).Get());
+        Workspaces.SetMouseState(workspaceName, 'auto');
+        Workspaces.SaveWorkspace(workspaceName);
     }
 
     function OnMouseMove(event)
@@ -60,14 +63,9 @@
         let tw = dragState.w + dx * dragSide.w;
         let th = dragState.h + dy * dragSide.h;
 
-        WorkspacePanels.GetWorkspace(workspaceName).Get().forEach(panel =>
+        Workspaces.GetPanels(workspaceName).forEach(panel =>
         {
-            if (panel.id == id) return;
-            
-            // th = SnapTop(tx, ty, tw, th, panel);
-            // [ty,th] = SnapBottom(tx, ty, tw, th, panel);
-            // tw = SnapLeft(tx, ty, tw, th, panel);
-            // [tx,tw] = SnapRight(tx, ty, tw, th, panel);
+            if (panel.id === id) return;
             [tx,ty,tw,th] = Snap(tx,ty,tw,th,panel);
         });
 
@@ -90,15 +88,13 @@
 
         if (w < 50)
         {
-            if (dragSide.w == 1)
-                x += w - 50;
+            if (dragSide.w == 1) x += w - 50;
             w = 50;
         }
 
         if (h < 50)
         {
-            if (dragSide.h == 1)
-                y += h - 50;
+            if (dragSide.h == 1) y += h - 50;
             h = 50;
         }
 
