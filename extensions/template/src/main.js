@@ -1,7 +1,5 @@
-import Extension from './Extension.svelte';
+import Main from './svelte/main.svelte';
 
-const ext = new Extension({
+export default new Main({
 	target: document.body,
 });
-
-export default ext;
