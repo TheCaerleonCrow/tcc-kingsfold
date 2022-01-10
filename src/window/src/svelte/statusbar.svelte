@@ -1,4 +1,6 @@
-<script></script>
+<script>
+</script>
+
 <style>
     .container 
 	{
@@ -8,5 +10,4 @@
 </style>
 
 <div class="container">
-
 </div>

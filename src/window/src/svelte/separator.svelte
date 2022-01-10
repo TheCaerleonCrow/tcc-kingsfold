@@ -42,6 +42,5 @@
 </style>
 
 <svelte:window on:mouseup={OnMouseUp} on:mousemove={OnMouseMove} />
-
 <div bind:this={container} class="container" on:mousedown={OnMouseDown}>
 </div>

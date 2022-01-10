@@ -1,14 +1,13 @@
 <script>
     import { Extensions } from '../store.js';
 
-    import { createEventDispatcher, onMount, onDestroy } from 'svelte';
+    import { createEventDispatcher, onDestroy } from 'svelte';
     const dispatch = createEventDispatcher();
 
     let items = [
         {name:'Gold Extension',icon:'assets/icon/icon_module_logs.png'},
         {name:'Silver Extension', icon:'assets/icon/icon_module_silver.png'},
     ];
-
 
     function ClickItem(item)
     {
@@ -23,12 +22,10 @@
         }); 
     });
 
-
     onDestroy(() => 
     {
         unsubExtensions();
     });
-
 </script>
 
 <style>

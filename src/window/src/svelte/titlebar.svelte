@@ -76,9 +76,8 @@
 
 <div class="container">
     <dev class="left">
-        <img class="logo" src="assets/gui/spikey_crown.png"/>
+        <img class="logo" src="assets/gui/spikey_crown.png" alt=""/>
         <div class="button">File</div>
-        <div class="button">???</div>
         <div class="button">Help</div>
     </dev>
     <div class="center">
@@ -89,13 +88,4 @@
         <div class="button" on:click={_ => __window.maximize()}><i class="fas fa-window-restore"></i></div>
         <div class="button button-close" on:click={_ => __window.close()}><i class="fas fa-times"></i></div>
     </div>
-
-
-    <!-- <div class="logo"></div>
-    <div class="title">{$documentTitle}</div>
-    <div class="buttons">
-        <div class="button" on:click={_ => __window.minimize()}><i class="fas fa-window-minimize"></i></div>
-        <div class="button" on:click={_ => __window.maximize()}><i class="fas fa-window-restore"></i></div>
-        <div class="button button-close" on:click={_ => __window.close()}><i class="fas fa-times"></i></div>
-    </div> -->
 </div>

@@ -37,7 +37,6 @@
             my: event.pageY,
         };
 
-        //WorkspacePanels.GetWorkspace(workspaceName).CaptureMouse();
         Workspaces.SetMouseState(workspaceName, 'none');
     }
 
@@ -45,8 +44,7 @@
     {
         if (!isDragging) return;
         isDragging = false;
-        //WorkspacePanels.GetWorkspace(workspaceName).FreeMouse();
-        //__window.saveWorkspace(workspaceName, WorkspacePanels.GetWorkspace(workspaceName).Get());
+
         Workspaces.SetMouseState(workspaceName, 'auto');
         Workspaces.SaveWorkspace(workspaceName);
     }
@@ -109,64 +107,6 @@
             h = boundsY - y;
             y = boundsY - h;
         }
-    }
-
-    function SnapTop(tx, ty, tw, th, other)
-    {
-        if (dragSide.h != -1) return th;
-        if (tx+tw < other.x) return th;
-        if (tx > other.x+other.w) return th;
-
-        if (Math.abs(ty+th - other.y) <= 10)
-            return other.y - ty - 3;
-
-        return th;
-    }
-
-    function SnapBottom(tx, ty, tw, th, other)
-    {
-        if (dragSide.h != 1) return [ty,th];
-        if (tx+tw < other.x) return [ty,th];
-        if (tx > other.x+other.w) return [ty,th];
-
-        if (Math.abs(other.y+other.h - ty) <= 10)
-        {
-            return [
-                other.y + other.h + 3, 
-                dragState.y + dragState.h - (other.y + other.h + 3)
-            ];
-        }
-
-        return [ty,th];
-    }
-
-    function SnapLeft(tx, ty, tw, th, other)
-    {
-        if (dragSide.w != -1) return tw;
-        if (ty+th < other.y) return tw;
-        if (ty > other.y+other.h) return tw;
-
-        if (Math.abs(tx+tw - other.x) <= 10)
-            return other.x - tx - 3;
-
-        return tw;
-    }
-
-    function SnapRight(tx, ty, tw, th, other)
-    {
-        if (dragSide.w != 1) return [tx,tw];
-        if (ty+th < other.y) return [tx,tw];
-        if (ty > other.y+other.h) return [tx,tw];
-
-        if (Math.abs(other.x+other.w - tx) <= 10)
-        {
-            return [
-                other.x + other.w + 3, 
-                dragState.x + dragState.w - (other.x + other.w + 3)
-            ];
-        }
-
-        return [tx,tw];
     }
 
     function Snap(tx, ty, tw, th, other)
@@ -244,7 +184,6 @@
                 th = dbottom - otop;
             }
         }
-
 
         return [tx, ty, tw, th]
     }

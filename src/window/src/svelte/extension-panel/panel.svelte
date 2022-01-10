@@ -45,10 +45,7 @@
 
             icon = value[title].icon;
         })();
-
-        // iframe.contentWindow.__ext.boop();
     }
-
 </script>
 
 <style>
@@ -70,10 +67,9 @@
     }
 </style>
 
-<div class="container" 
+<div class="container" transition:fade="{{duration: 100}}"
     style={`left:${x}px;top:${y}px;width:${w}px;height:${h}px;`}
-    transition:fade="{{duration: 100}}">
-
+>
     <Titlebar 
         workspaceName = {workspaceName}
         bind:id bind:title bind:icon
@@ -83,9 +79,8 @@
 
     <Borders 
         workspaceName = {workspaceName}
-        bind:id
-        bind:x bind:y bind:w bind:h 
+        bind:id bind:x bind:y bind:w bind:h 
     />
 
-    <iframe bind:this={iframe} title="" src="extension.html" on:load={OnLoadIframe} sandbox="allow-scripts allow-same-origin"></iframe>
+    <iframe bind:this={iframe} title={title} src="extension.html" on:load={OnLoadIframe} sandbox="allow-scripts allow-same-origin"></iframe>
 </div>

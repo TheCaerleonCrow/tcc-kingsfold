@@ -26,19 +26,19 @@
 
 <div class="container" style={`display:${visible ? 'initial':'none'}`}>
     {#if panels !== undefined}
-    {#each $panels as panel (panel.id)}
-        <ExtensionPanel
-            on:close={() => ClosePanel(panel.id)}
+        {#each $panels as panel (panel.id)}
+            <ExtensionPanel
+                on:close={() => ClosePanel(panel.id)}
 
-            workspaceName = {name}
-            bind:id={panel.id}
-            bind:x={panel.x}
-            bind:y={panel.y}
-            bind:w={panel.w}
-            bind:h={panel.h}
-            bind:iframe={panel.iframe}
-            bind:title={panel.name}
-        />
-    {/each}
+                workspaceName = {name}
+                bind:id={panel.id}
+                bind:x={panel.x}
+                bind:y={panel.y}
+                bind:w={panel.w}
+                bind:h={panel.h}
+                bind:iframe={panel.iframe}
+                bind:title={panel.name}
+            />
+        {/each}
     {/if}
 </div>

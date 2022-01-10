@@ -3,7 +3,6 @@ const { contextBridge, ipcRenderer } = require('electron');
 // Only the main renderer should have access to these.
 if (process.isMainFrame)
 {
-
     contextBridge.exposeInMainWorld('__window', 
     {
         close:      () => ipcRenderer.send('window-close'),

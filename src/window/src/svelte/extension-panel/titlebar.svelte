@@ -30,8 +30,7 @@
             mx : event.pageX,
             my : event.pageY,
         };
-
-        //WorkspacePanels.GetWorkspace(workspaceName).CaptureMouse();
+;
         Workspaces.SetMouseState(workspaceName, 'none');
     }
 
@@ -39,8 +38,7 @@
     {
         if (!isDragging) return;
         isDragging = false;
-        //WorkspacePanels.GetWorkspace(workspaceName).FreeMouse();
-        //__window.saveWorkspace(workspaceName, WorkspacePanels.GetWorkspace(workspaceName).Get());
+
         Workspaces.SetMouseState(workspaceName, 'auto');
         Workspaces.SaveWorkspace(workspaceName);
     }
