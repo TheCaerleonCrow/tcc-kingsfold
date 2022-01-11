@@ -29,7 +29,7 @@
 
 <div class="container" style={style} use:DetectOutsideClick on:clickout>
     {#each items as item}
-        <MenuItem name={item.name} on:click={item.onClick}/>
+        <MenuItem name={item.name} enabled={!item.enabled} on:click={item.onClick}/>
     {/each}
 </div>
 

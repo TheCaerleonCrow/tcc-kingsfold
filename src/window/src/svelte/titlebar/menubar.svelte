@@ -4,13 +4,14 @@
 
     const buttons = [
         {name:'File', hover:false, menuItems: [
-            {name: 'New Workspace', onClick:()=>console.log('New Workspace')},
-            {name: 'Import Workspace'},
+            {enabled:true, name: 'New Workspace', onClick:()=>console.log('New Workspace')},
+            {enabled:false, name: 'Import Workspace'},
+            {enabled:false, name: 'Export Workspace'},
         ]},
         {name:'Help', hover:false, menuItems: [
-            {name: 'Check For Updates'},
+            {enabled:false, name: 'Check For Updates'},
             {name: 'sep'},
-            {name: 'About'},
+            {enabled:true, name: 'About'},
         ]},
     ];
 

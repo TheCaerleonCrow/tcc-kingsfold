@@ -1,11 +1,12 @@
 <script>
     export let name;
+    export let enabled;
 </script>
 
 {#if name === 'sep'}
     <div class="separator"></div>
 {:else}
-    <div class="container" on:click>
+    <div class="container" class:enabled on:click>
         {name}
     </div> 
 {/if}
@@ -20,6 +21,10 @@
     .container:hover {
         background-color: #444;
         color: gold;
+    }
+
+    .enabled {
+        color: #444;
     }
 
     .separator {
