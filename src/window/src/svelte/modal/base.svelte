@@ -3,29 +3,42 @@
     import { onMount } from 'svelte';
 
     export let title;
-    export let width;
-    export let height;
-    let x;
-    let y;
-    $: style = `width:${width}px;height:${height}px;left:${x}px;top:${y}px;`;
+    export let width = 'auto';
+    export let height = 'auto';
+    let x = 0;
+    let y = 0;
+    let autoWidth = isNaN(width);
+    let autoHeight = isNaN(height);
+
+    $: styleWidth = `width:${width}${autoWidth?'':'px'};`;
+    $: styleHeight= `width:${height}${autoHeight?'':'px'};`;
+    $: style = `${styleWidth}${styleHeight}left:${x}px;top:${y}px;`;
 
     let dispatch = createEventDispatcher();
-
-    onMount(() => 
-    {
-        x = document.body.clientWidth/2 - width/2;
-        y = document.body.clientHeight/2 - height/2;
-    });
+    let container;
 
     const Close = () =>
     {
         dispatch('close');
     };
+
+    onMount(() => 
+    {
+        x = document.body.clientWidth/2;
+        y = document.body.clientHeight/2;
+
+        if (!autoWidth)     x -= width/2;
+        else                x -= container.clientWidth/2;
+
+        if (!autoHeight)    y -= height/2;
+        else                y -= container.clientHeight/2;
+    });
+
+    
 </script>
 
 <div class="shadow"></div>
-<div class="container" style={style}>
-
+<div bind:this={container} class="container" style={style} >
     <div class="titlebar">
         <div class="title">{title}</div>
         <div class="close" on:click={Close}><i class="fas fa-times"></i></div>

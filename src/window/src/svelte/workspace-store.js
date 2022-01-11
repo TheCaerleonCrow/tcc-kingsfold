@@ -1,10 +1,9 @@
-import { writable,readable,get } from 'svelte/store';
+import { writable } from 'svelte/store';
+import { documentTitle } from './store.js';
 
 let wsList = writable([]);
 let wsCounter = 0;
 let panelCounter = 0;
-
-
 
 export const Store = wsList;
 export const VisibleWorkspace = writable('');
@@ -188,6 +187,12 @@ export const ShowWorkspace = (name) =>
         return x;
     });
 };
+
+export const SelectWorkspace = (name) =>
+{
+    documentTitle.set(`${name} - Kingsfold`);
+    ShowWorkspace(name);
+}
 
 export const LoadWorkspaces = (fn) =>
 {

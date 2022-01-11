@@ -2,9 +2,11 @@
     import Button from './button.svelte';
     import Menu from './menu.svelte';
 
+    import { CurrentModal } from '../modal/store.js';
+
     const buttons = [
         {name:'File', hover:false, menuItems: [
-            {enabled:false, name:'New Workspace', hotkey:'Ctrl+W', onClick:()=>console.log('New Workspace')},
+            {enabled:true, name:'New Workspace', hotkey:'Ctrl+W', onClick:()=>CurrentModal.set('New Workspace')},
             {enabled:false, name:'Import Workspace', hotkey:'Ctrl+O', onClick:()=>console.log('Import Workspace')},
             {enabled:false, name:'Export Workspace', hotkey:'Ctrl+K', onClick:()=>console.log('Export Workspace')},
             {name:'sep'},

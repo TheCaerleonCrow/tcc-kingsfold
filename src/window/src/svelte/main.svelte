@@ -8,7 +8,7 @@
 	import StatusBar from './statusbar.svelte';
 	import Separator from './separator.svelte';
 
-	import Modal from './modal/base.svelte';
+	import ModalSystem from './modal/system.svelte';
 
 	import { documentTitle, workspaceWidth, workspaceHeight } from './store.js';
 	import * as Workspaces from './workspace-store.js';
@@ -22,8 +22,7 @@
 
 	function SelectWorkspace(name)
 	{
-		documentTitle.set(`${name} - Kingsfold`);
-		Workspaces.ShowWorkspace(name);
+		Workspaces.SelectWorkspace(name);
 	}
 
 	function OpenExtension(event)
@@ -90,11 +89,7 @@
 </style>
 
 <div class="container">
-	{#if showModal}
-		<Modal title="New Workspace" width=800 height=600 on:close={()=>showModal=false}>
-			<div>Hello!</div>
-		</Modal>
-	{/if}
+	<ModalSystem />
 	<Titlebar />
 	<div class="main">
 		<WorkspaceList on:selectWorkspace={(e) => SelectWorkspace(e.detail)} />
