@@ -28,6 +28,7 @@
 
     .icon {
         width: 24px;
+        color: white;
     }
 
     .red:hover {

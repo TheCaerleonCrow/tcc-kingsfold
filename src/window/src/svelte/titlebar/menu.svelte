@@ -1,10 +1,20 @@
 <script>
+    import { createEventDispatcher } from 'svelte';
+
     import MenuItem from './menuitem.svelte';
 
     export let x;
     export let items;
     $: style = `left:${x}px`;
 
+    let dispatch = createEventDispatcher();
+
+
+    const OnClickItem = (event, item) =>
+    {
+        item.onClick(event);
+        dispatch('clickitem', item);
+    };
 
     const DetectOutsideClick = (node) => 
     {
@@ -29,7 +39,7 @@
 
 <div class="container" style={style} use:DetectOutsideClick on:clickout>
     {#each items as item}
-        <MenuItem name={item.name} enabled={!item.enabled} on:click={item.onClick}/>
+        <MenuItem name={item.name} enabled={item.enabled} hotkey={item.hotkey} on:click={(e)=>OnClickItem(e,item)}/>
     {/each}
 </div>
 

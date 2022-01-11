@@ -4,14 +4,20 @@
 
     const buttons = [
         {name:'File', hover:false, menuItems: [
-            {enabled:true, name: 'New Workspace', onClick:()=>console.log('New Workspace')},
-            {enabled:false, name: 'Import Workspace'},
-            {enabled:false, name: 'Export Workspace'},
+            {enabled:false, name:'New Workspace', hotkey:'Ctrl+W', onClick:()=>console.log('New Workspace')},
+            {enabled:false, name:'Import Workspace', hotkey:'Ctrl+O', onClick:()=>console.log('Import Workspace')},
+            {enabled:false, name:'Export Workspace', hotkey:'Ctrl+K', onClick:()=>console.log('Export Workspace')},
+            {name:'sep'},
+            {enabled:true, name:'Settings', hotkey:'Ctrl+K', onClick:()=>console.log('Settings')},
+            {name:'sep'},
+            {enabled:true, name:'Exit', onClick:__window.close},
         ]},
         {name:'Help', hover:false, menuItems: [
-            {enabled:false, name: 'Check For Updates'},
-            {name: 'sep'},
-            {enabled:true, name: 'About'},
+            {enabled:true, name:'Open Dev Tools', hotkey:'Ctrl+Shift+I', onClick:__window.openDevTools},
+            {name:'sep'},
+            {enabled:false, name:'Check For Updates'},
+            {name:'sep'},
+            {enabled:false, name:'About', hotkey:'Home'},
         ]},
     ];
 
@@ -61,7 +67,7 @@
                 on:mouseover={(e) => HoverButton(button.name, e)}
             />
             {#if menuState.active && menuState.name == button.name}
-                <Menu x={menuState.position} items={button.menuItems} on:clickout={ClickOutMenu} />
+                <Menu x={menuState.position} items={button.menuItems} on:clickout={ClickOutMenu} on:clickitem={ClickOutMenu}/>
             {/if}
         {/each}
     </div>

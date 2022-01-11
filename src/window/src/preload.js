@@ -8,6 +8,7 @@ if (process.isMainFrame)
         close:      () => ipcRenderer.send('window-close'),
         maximize:   () => ipcRenderer.send('window-maximize'),
         minimize:   () => ipcRenderer.send('window-minimize'),
+        openDevTools: () => ipcRenderer.send('open-dev-tools'),
         getExtensions: (callback) => 
         {
             ipcRenderer.send('get-extensions');

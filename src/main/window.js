@@ -44,6 +44,11 @@ class Window extends BrowserWindow
             this.maximize();
         });
 
+        ipcMain.on('open-dev-tools', () =>
+        {
+            this.webContents.openDevTools({mode:'right'});
+        });
+
         // Load the html file.
         this.loadFile(htmlPath); 
     }
