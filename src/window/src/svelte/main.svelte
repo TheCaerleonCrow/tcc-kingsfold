@@ -8,6 +8,8 @@
 	import StatusBar from './statusbar.svelte';
 	import Separator from './separator.svelte';
 
+	import Modal from './modal/base.svelte';
+
 	import { documentTitle, workspaceWidth, workspaceHeight } from './store.js';
 	import * as Workspaces from './workspace-store.js';
 	import { Store, VisibleWorkspace } from './workspace-store.js';
@@ -15,6 +17,8 @@
 	let workspaceContainer;
 	let workspacesUnsubscriber;
 	const resizeObserver = new ResizeObserver(entries => OnResize());
+
+	let showModal = true;
 
 	function SelectWorkspace(name)
 	{
@@ -86,6 +90,11 @@
 </style>
 
 <div class="container">
+	{#if showModal}
+		<Modal title="New Workspace" width=800 height=600 on:close={()=>showModal=false}>
+			<div>Hello!</div>
+		</Modal>
+	{/if}
 	<Titlebar />
 	<div class="main">
 		<WorkspaceList on:selectWorkspace={(e) => SelectWorkspace(e.detail)} />
