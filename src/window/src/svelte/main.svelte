@@ -1,7 +1,7 @@
 <script>
 	import { onMount, onDestroy } from 'svelte';
 
-	import Titlebar from './titlebar.svelte';
+	import Titlebar from './titlebar/titlebar.svelte';
 	import Workspace from './workspace.svelte';
 	import ExtensionList from './extension-list/list.svelte';
 	import WorkspaceList from './workspace-list/list.svelte';
