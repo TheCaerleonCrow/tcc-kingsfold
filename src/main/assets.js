@@ -5,7 +5,7 @@ const fs = require('fs').promises;
 let assetpath = '';
 const assets = {};
 assets.images = {};
-assets.images.avatars = {'resources':process.resourcesPath};
+assets.images.avatars = {};
 
 
 
