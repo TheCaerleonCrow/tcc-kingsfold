@@ -1,22 +1,36 @@
 <script>
-    import { createEventDispatcher } from 'svelte';
+    import { createEventDispatcher, onMount } from 'svelte';
     import * as Workspaces from '../workspace-store.js';
 
     let name;
+    let selectedIcon = 'assets/avatars/MORGANABOOK1.png';
+    let avatars = [];
     let dispatch = createEventDispatcher();
 
     const OnSubmit = () => 
     {
-        Workspaces.AddWorkspace(name, 'assets/avatars/MORGANABOOK1.png');
+        Workspaces.AddWorkspace(name, selectedIcon);
         Workspaces.SelectWorkspace(name);
         dispatch('close');
     }   
+
+    onMount(async() =>
+    {
+        avatars = Object.values(await __assets.GetAvatars());
+        console.log(avatars);
+    });
 </script>
 
 <div class="container">
     <div class="name">
         <div>Workspace Name</div>
         <input type="text" bind:value={name}>
+    </div>
+    <img src={selectedIcon} alt="" />
+    <div class="icons">
+        {#each avatars as icon}
+            <img src={icon} alt="" on:click={()=>selectedIcon=icon}/>
+        {/each}
     </div>
     <div class="submit" on:click={OnSubmit}>Submit</div>
 </div>
@@ -38,6 +52,7 @@
         padding: 8px;
         background-color: #22AA22;
         border-radius: 5px;
+        margin-top: 8px;
     }
 
     .submit:hover {
@@ -56,5 +71,23 @@
 
     input:focus {
         outline: 1px solid #444;
+    }
+
+    .icons {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        height: 256px;
+        overflow: scroll;
+        overflow-x: hidden;
+        margin-top: 8px;
+    }
+
+    img {
+        width: 96px;
+    }
+
+    .icons img:hover {
+        background-color: #444;
+        cursor: pointer;
     }
 </style>

@@ -7,8 +7,9 @@ const Window = require('./src/main/window.js');
 let window;
 let socket;
 
-app.on('ready', () =>
+app.on('ready', async () =>
 {
+    await require('./src/main/assets.js')();
     require('./src/main/sniffer.js');
     require('./src/main/extensions.js');
     require('./src/main/workspaces.js');

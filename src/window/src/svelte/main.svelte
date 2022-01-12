@@ -40,7 +40,7 @@
         workspaceHeight.set(workspaceContainer.clientHeight -2);
     }
 
-	onMount(() =>
+	onMount(async () =>
 	{
 		Workspaces.LoadWorkspaces(() =>
 		{
