@@ -31,13 +31,10 @@ async function LoadExtension(dir)
 {
     try 
     {
-        const data = await fs.readFile(path.join(dir, 'package.json'), 'utf8');
+        const data = await fs.readFile(path.join(dir, 'extension.json'), 'utf8');
         const json = await JSON.parse(data);
 
-        if (json.extension === undefined) 
-            throw new Error("No extension config found.");
-
-        LoadConfig(dir, json.extension);
+        LoadConfig(dir, json);
     }
     catch (error)
     {

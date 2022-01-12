@@ -14,12 +14,5 @@
     "svelte": "^3.0.0"
   },
   "dependencies": {
-  },
-  "extension": {
-    "name": "Template",
-    "description": "A starting point for any extension.",
-    "icon": "assets/gui/globe.png",
-    "main": "build/bundle/index.js",
-    "css": "build/bundle/index.css"
   }
 }

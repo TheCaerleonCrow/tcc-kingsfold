@@ -7,58 +7,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "window:build": "rollup -c",
     "window:dev": "rollup -c -w",
-    "app:build": "npm run window:build && electron-builder build",
-    "app:dev": "npm run window:build && electron ."
-  },
-  "build": {
-    "appId": "TheCaerleonCrow.Kingsfold",
-    "productName": "Kingsfold",
-    "asar": false,
-    "directories": {
-      "buildResources" : "resources"
-    },
-    "files": [
-      "**/*",
-      "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
-      "!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
-      "!**/node_modules/*.d.ts",
-      "!**/node_modules/.bin",
-      "!**/*.{iml,o,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,xproj}",
-      "!.editorconfig",
-      "!**/._*",
-      "!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,.gitignore,.gitattributes}",
-      "!**/{__pycache__,thumbs.db,.flowconfig,.idea,.vs,.nyc_output}",
-      "!**/{appveyor.yml,.travis.yml,circle.yml}",
-      "!**/{npm-debug.log,yarn.lock,.yarn-integrity,.yarn-metadata.json}",
-      "!README.md",
-      "!package.json",
-      "!sniffer.exe",
-      "!logs",
-      "!extensions",
-      "!src/window/src/{svelte,main.js}",
-      "!.vscode",
-      "!rollup.config.js"
-    ],
-    "extraFiles": [
-      "sniffer.exe",
-      "extensions/*/build/**",
-      "extensions/*/package.json"
-    ],
-    "win": {
-      "target": [
-        {
-          "target": "nsis",
-          "arch": "x64"
-        }
-      ]
-    },
-    "nsis": {
-      "artifactName": "${productName}Setup.${ext}",
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true
-    }
+    "app:dev": "electron .",
+    "build": "rollup -c && electron-builder build --config electron.config.js"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",

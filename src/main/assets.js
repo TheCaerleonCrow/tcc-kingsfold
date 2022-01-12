@@ -2,10 +2,10 @@ const { ipcMain } = require('electron');
 const path = require('path');
 const fs = require('fs').promises;
 
-const assetPath = path.join(__dirname, '../window/build/assets/');
+let assetpath = '';
 const assets = {};
 assets.images = {};
-assets.images.avatars = {};
+assets.images.avatars = {'resources':process.resourcesPath};
 
 
 
@@ -13,7 +13,7 @@ const LoadAvatars = async () =>
 {
     try 
     {
-        const avatarPath = path.join(assetPath, 'avatars');
+        const avatarPath = path.join(assetpath, 'avatars');
         const files = await fs.readdir(avatarPath);
 
         for (const file of files)
@@ -34,7 +34,8 @@ ipcMain.handle('assets.get-avatars', async (event) =>
     return assets.images.avatars;
 });
 
-module.exports = async () =>
+module.exports = async ($assetpath) =>
 {
+    assetpath = $assetpath;
     await LoadAvatars();
 };
