@@ -4,6 +4,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
 import css from 'rollup-plugin-css-only';
 import Package from './package.json';
+import Extension from './extension.json';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -19,7 +20,7 @@ export default {
 	output: {
 		format: 'iife',
 		dir: 'build/bundle/',
-		name: Package.extension.name,
+		name: Extension.name,
 	},
 
 	plugins: [

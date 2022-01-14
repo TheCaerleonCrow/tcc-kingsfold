@@ -50,6 +50,17 @@ exports.default = {
         ],
     },
 
+    linux:
+    {
+        target:
+        [
+            {
+                target: "tar.gz",
+                arch: "x64",
+            },
+        ],
+    },
+
     nsis: 
     {
         artifactName: "${productName}Setup.${ext}",

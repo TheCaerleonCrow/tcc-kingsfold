@@ -7,9 +7,15 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "window:dev": "rollup -c -w",
-    "app:dev": "electron .",
-    "build": "rollup -c && electron-builder build --config electron.config.js"
+    "setup": "npm i && ext:install",
+    "dev:renderer": "rollup -c -w",
+    "dev:app": "electron .",
+    "build:windows": "npm run build:pre && electron-builder build --config electron.config.js --windows",
+    "build:linux": "npm run build:pre && electron-builder build --config electron.config.js --linux",
+    "build:pre:renderer": "rollup -c",
+    "build:pre": "npm run build:pre:renderer && npm run ext:build",
+    "ext:install": "node ./scripts/ext.js --install",
+    "ext:build": "node ./scripts/ext.js --build"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
