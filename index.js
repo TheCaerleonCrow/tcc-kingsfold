@@ -9,11 +9,6 @@ let socket;
 
 app.on('ready', async () =>
 {
-    let assetpath = app.isPackaged ? 
-        path.join(process.resourcesPath, 'app/src/renderer/build/assets'):
-        path.join(__dirname, 'src/renderer/build/assets');
-
-    await require('./src/main/assets.js')(assetpath);
     require('./src/main/sniffer.js');
     require('./src/main/extensions.js');
     require('./src/main/workspaces.js');

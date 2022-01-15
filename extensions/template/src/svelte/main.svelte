@@ -26,12 +26,12 @@
 
 <div class="container">
 	<div class="property">
-		<img src="assets/icon/icon_module_silver.png"/>
+		<img src={Assets.images.icon.icon_module_silver}/>
 		{silver.toLocaleString()}
 	</div>
 
 	<div class="property">
-		<img src="assets/icon/icon_module_gold.png"/>
+		<img src={Assets.images.icon.icon_module_gold}/>
 		{gold.toLocaleString()}
 	</div>
 </div>

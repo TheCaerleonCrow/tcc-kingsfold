@@ -1,7 +1,7 @@
 exports.default = {
     appId: "TheCaerleonCrow.Kingsfold",
     productName: "Kingsfold",
-    asar: false,
+    asar: true, // Use false for testing resource output, but remember to reset to true when done.
 
     directories: 
     {
@@ -30,6 +30,7 @@ exports.default = {
         "!src/renderer/src",
         "!.vscode",
         "!*.config.js",
+        '!scripts'
     ],
 
     extraFiles: 

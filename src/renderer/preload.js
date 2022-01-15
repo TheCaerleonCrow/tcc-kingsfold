@@ -51,11 +51,3 @@ contextBridge.exposeInMainWorld('__ext',
 
     boop: () => console.log('boop'),
 });
-
-contextBridge.exposeInMainWorld('__assets',
-{
-    GetAvatars: async () => 
-    {
-        return await ipcRenderer.invoke('assets.get-avatars');
-    },
-});

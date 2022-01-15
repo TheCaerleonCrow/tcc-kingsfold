@@ -3,7 +3,7 @@
     import * as Workspaces from '../workspace-store.js';
 
     let name;
-    let selectedIcon = 'assets/avatars/MORGANABOOK1.png';
+    let selectedIcon = Assets.images.avatars.MORGANABOOK1;
     let avatars = [];
     let dispatch = createEventDispatcher();
 
@@ -16,8 +16,7 @@
 
     onMount(async() =>
     {
-        avatars = Object.values(await __assets.GetAvatars());
-        console.log(avatars);
+        avatars = Object.values(Assets.images.avatars);
     });
 </script>
 

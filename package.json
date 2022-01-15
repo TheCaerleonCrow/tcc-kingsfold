@@ -7,7 +7,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "setup": "npm i && ext:install",
+    "setup": "npm i && npm run ext:install && npm run ext:build && npm run assets",
     "dev:renderer": "rollup -c -w",
     "dev:app": "electron .",
     "build:windows": "npm run build:pre && electron-builder build --config electron.config.js --windows",
@@ -15,10 +15,12 @@
     "build:pre:renderer": "rollup -c",
     "build:pre": "npm run build:pre:renderer && npm run ext:build",
     "ext:install": "node ./scripts/ext.js --install",
-    "ext:build": "node ./scripts/ext.js --build"
+    "ext:build": "node ./scripts/ext.js --build",
+    "assets": "node ./scripts/assets.js"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
     "electron": "^16.0.5",
     "electron-builder": "^22.14.5",
@@ -27,7 +29,5 @@
     "rollup-plugin-svelte": "^7.0.0",
     "rollup-plugin-terser": "^7.0.0",
     "svelte": "^3.0.0"
-  },
-  "dependencies": {
   }
 }

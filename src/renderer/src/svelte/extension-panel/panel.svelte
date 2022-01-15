@@ -30,6 +30,8 @@
         {
             if (value[title] === undefined) return;
 
+            iframe.contentWindow.ImportAssets(Assets);
+
             let script = document.createElement('script');
             script.type = 'text/javascript';
             script.src = value[title].main;

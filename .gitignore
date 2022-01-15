@@ -1,5 +1,6 @@
 **/bundle/
 sniffer.exe
+/src/renderer/src/assets.json
 
 # Logs
 logs
